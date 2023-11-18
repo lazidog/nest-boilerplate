@@ -21,6 +21,6 @@ export class UserService {
   }
 
   findAll() {
-    return this.configService.get<string>('database.port');
+    return this.usersRepository.find();
   }
 }

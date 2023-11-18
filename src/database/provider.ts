@@ -26,6 +26,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         infer: true,
       }),
       dropSchema: this.isDevEnv(),
+      migrationsRun: this.isDevEnv(),
       logging: this.isDevEnv(),
       keepConnectionAlive: !this.isDevEnv(),
       entities: [__dirname + '/../modules/**/*.entity{.ts,.js}'],
