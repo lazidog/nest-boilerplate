@@ -11,10 +11,10 @@ export class User extends AbstractEntity {
   @Index('IDX_email')
   email!: string;
 
-  @Column({ type: String, nullable: true, name: 'first_name' })
+  @Column({ type: String, nullable: true })
   firstName?: string;
 
-  @Column({ type: String, nullable: true, name: 'last_name' })
+  @Column({ type: String, nullable: true })
   lastName?: string;
 
   @Column({ type: String, nullable: true })

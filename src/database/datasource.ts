@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { SnakeNamingStrategy } from './snake-naming.strategy';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 const isDevEnv = () => {
@@ -20,4 +21,5 @@ export const AppDataSource = new DataSource({
   entities: ['src/modules/**/*.entity{.ts,.js}'],
   migrations: ['src/database/migrations/*{.ts,.js}'],
   subscribers: ['src/modules/**/*.subsciber{.ts,.js}'],
+  namingStrategy: new SnakeNamingStrategy(),
 } as DataSourceOptions);

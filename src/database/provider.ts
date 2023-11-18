@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
 import { ConfigTypes } from 'configs/config.type-definition';
+import { SnakeNamingStrategy } from 'database/snake-naming.strategy';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
@@ -30,6 +31,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       entities: [__dirname + '/../modules/**/*.entity{.ts,.js}'],
       migrations: [__dirname + '/migrations/*{.ts,.js}'],
       subscribers: [__dirname + '/../modules/**/*.subsciber{.ts,.js}'],
+      namingStrategy: new SnakeNamingStrategy(),
     } as TypeOrmModuleOptions;
   }
 }
