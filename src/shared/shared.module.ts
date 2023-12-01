@@ -1,6 +1,6 @@
 import { Global, Module, type Provider } from '@nestjs/common';
 
-import { IsExist, IsNotExist } from 'validations/database.validator';
+import { IsExist, IsNotExist } from 'validators/database.validator';
 
 const providers: Provider[] = [IsNotExist, IsExist];
 

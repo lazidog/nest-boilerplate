@@ -1,13 +1,7 @@
 import { Transform } from 'class-transformer';
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsOptional,
-  MinLength,
-  Validate,
-} from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, Validate } from 'class-validator';
 import { lowerCaseTransformer } from 'commom/transformers';
-import { IsNotExist } from 'validations/database.validator';
+import { IsNotExist } from 'validators/database.validator';
 
 export class CreateUserDto {
   @Transform(lowerCaseTransformer)

@@ -6,7 +6,7 @@ import {
   IsEnum,
 } from 'class-validator';
 
-import { IsNotExist } from 'validations/database.validator';
+import { IsNotExist } from 'validators/database.validator';
 import { AppNameEnum, RoleEnum, AccountStatusEnum } from 'commom/enum';
 import { User } from 'modules/user/user.entity';
 

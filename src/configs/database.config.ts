@@ -1,8 +1,15 @@
 import { registerAs } from '@nestjs/config';
-import { IsOptional, IsInt, IsString, ValidateIf } from 'class-validator';
+import { plainToClass } from 'class-transformer';
+import { ClassConstructor } from 'class-transformer/types/interfaces';
+import {
+  IsOptional,
+  IsInt,
+  IsString,
+  ValidateIf,
+  validateSync,
+} from 'class-validator';
 
 import { DatabaseConfig } from './config.type-definition';
-import validateConfig from 'validations/config.validation';
 
 class EnvironmentVariablesValidator {
   // Connection use url
@@ -36,6 +43,23 @@ class EnvironmentVariablesValidator {
   @ValidateIf((envValues) => !envValues.DB_URL)
   @IsString()
   DB_USERNAME!: string;
+}
+
+function validateConfig<T extends object>(
+  config: Record<string, unknown>,
+  envVariablesClass: ClassConstructor<T>,
+) {
+  const validatedConfig = plainToClass(envVariablesClass, config, {
+    enableImplicitConversion: true,
+  });
+  const errors = validateSync(validatedConfig, {
+    skipMissingProperties: false,
+  });
+
+  if (errors.length > 0) {
+    throw new Error(errors.toString());
+  }
+  return validatedConfig;
 }
 
 export default registerAs<DatabaseConfig>('database', () => {
