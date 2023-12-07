@@ -20,6 +20,6 @@ export const AppDataSource = new DataSource({
   keepConnectionAlive: !isDevEnv(),
   entities: ['src/modules/**/*.entity{.ts,.js}'],
   migrations: ['src/database/migrations/*{.ts,.js}'],
-  subscribers: ['src/modules/**/*.subsciber{.ts,.js}'],
+  subscribers: ['src/modules/**/*.subscriber{.ts,.js}'],
   namingStrategy: new SnakeNamingStrategy(),
 } as DataSourceOptions);

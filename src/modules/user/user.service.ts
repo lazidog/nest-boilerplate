@@ -1,10 +1,16 @@
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, In, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { User } from './user.entity';
+import { QueryOption } from 'commom/query.option';
 import { CreateUserDto } from './dto/create-user.dto';
+
+export interface UserQueryFilter {
+  ids?: any[];
+  id?: string;
+}
 
 @Injectable()
 export class UserService {
@@ -20,7 +26,19 @@ export class UserService {
     );
   }
 
-  findAll() {
-    return this.usersRepository.find();
+  findAll(filter: UserQueryFilter = {}, option: QueryOption<User> = {}) {
+    const { ids } = filter;
+    const { fields, offset, limit } = option;
+    const where: FindOptionsWhere<User> = {};
+    if (ids) {
+      where.id = In(ids);
+    }
+
+    return this.usersRepository.find({
+      where: where,
+      select: fields,
+      skip: offset,
+      take: limit,
+    });
   }
 }

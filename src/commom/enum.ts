@@ -11,3 +11,7 @@ export enum AccountStatusEnum {
   'active' = 1,
   'inactive' = 0,
 }
+
+export enum LimitRecordPerQueryOf {
+  'user' = 10,
+}

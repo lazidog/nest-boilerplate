@@ -1,5 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+
 import { UserService } from './user.service';
+import { LimitRecordPerQueryOf } from 'commom/enum';
 import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('user')
@@ -12,7 +14,12 @@ export class UserController {
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  findAll(@Query('page') page: string = '1') {
+    const limit = LimitRecordPerQueryOf.user;
+    const offset = (Number(page) - 1) * limit;
+    return this.userService.findAll(
+      {},
+      { fields: { firstName: true, lastName: true }, offset, limit },
+    );
   }
 }
